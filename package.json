@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Image editor based on electron",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "image-js": "^0.1.5"
+  },
   "devDependencies": {
     "electron-prebuilt": "^0.34.1"
   },
