@@ -7,7 +7,7 @@
     "image-js": "^0.1.6"
   },
   "devDependencies": {
-    "electron-prebuilt": "^0.34.1"
+    "electron-prebuilt": "^0.36.6"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
