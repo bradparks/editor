@@ -4,7 +4,7 @@
   "description": "Image editor based on electron",
   "main": "main.js",
   "dependencies": {
-    "image-js": "^0.1.6"
+    "image-js": "^0.1.8"
   },
   "devDependencies": {
     "electron-prebuilt": "^0.36.6"
