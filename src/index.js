@@ -35,6 +35,20 @@ app.on('ready', function() {
     // Open the DevTools.
     //mainWindow.webContents.openDevTools();
 
+    const dialog = electron.dialog;
+    setTimeout(function () {
+        console.log(dialog.showOpenDialog({
+            title: 'Open image',
+            filters: [
+                {
+                    name: 'Images',
+                    extensions: ['jpg', 'jpeg', 'png', 'tiff', 'tif']
+                }
+            ],
+            properties: ['openFile']
+        }));
+    }, 2000);
+
     // Emitted when the window is closed.
     mainWindow.on('closed', function() {
         // Dereference the window object, usually you would store windows
