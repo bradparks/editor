@@ -1,59 +1,33 @@
 'use strict';
 
 const electron = require('electron');
-const app = electron.app;  // Module to control application life.
-const BrowserWindow = electron.BrowserWindow;  // Module to create native browser window.
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
 
 const Menu = electron.Menu;
 const menu = require('./main/menu');
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
-var mainWindow = null;
+var windows = new Map();
 
-// Quit when all windows are closed.
 app.on('window-all-closed', function() {
-    // On OS X it is common for applications and their menu bar
-    // to stay active until the user quits explicitly with Cmd + Q
     if (process.platform != 'darwin') {
         app.quit();
     }
 });
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
 app.on('ready', function() {
-    // Create the main menu
     Menu.setApplicationMenu(menu);
-
-    // Create the browser window.
-    mainWindow = new BrowserWindow({width: 800, height: 600});
-
-    // and load the index.html of the app.
-    mainWindow.loadURL('file://' + __dirname + '/html/index.html');
-
-    // Open the DevTools.
-    //mainWindow.webContents.openDevTools();
-
-    const dialog = electron.dialog;
-    setTimeout(function () {
-        console.log(dialog.showOpenDialog({
-            title: 'Open image',
-            filters: [
-                {
-                    name: 'Images',
-                    extensions: ['jpg', 'jpeg', 'png', 'tiff', 'tif']
-                }
-            ],
-            properties: ['openFile']
-        }));
-    }, 2000);
-
-    // Emitted when the window is closed.
-    mainWindow.on('closed', function() {
-        // Dereference the window object, usually you would store windows
-        // in an array if your app supports multi windows, this is the time
-        // when you should delete the corresponding element.
-        mainWindow = null;
-    });
 });
+
+exports.openImage = function(url) {
+    if (windows.has(url)) {
+        windows.get(url).focus();
+    } else {
+        const window = new BrowserWindow(/*{width: 800, height: 600}*/);
+        windows.set(url, window);
+        window.loadURL(`file://${__dirname}/html/editor.html?image=${encodeURIComponent(url)}`);
+        window.on('closed', function() {
+            windows.delete(window);
+        });
+    }
+};

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>image-js</title>
+</head>
+<body>
+<h1></h1>
+<img id="image">
+
+</img>
+<script>
+    var test = document.getElementById('image');
+    var IJS = require('image-js');
+    var search = window.location.search;
+    var url = decodeURIComponent(search.substring(7));
+    IJS.load(url).then(image => {
+        test.src = image.toDataURL();
+    });
+</script>
+</body>
+</html>

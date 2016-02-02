@@ -3,8 +3,34 @@
 const electron = require('electron');
 const app = electron.app;
 const Menu = electron.Menu;
+const dialog = electron.dialog;
+const application = require('../index');
 
 const template = [
+    {
+        label: 'File',
+        submenu: [
+            {
+                label: 'Open',
+                accelerator: 'CmdOrCtrl+O',
+                click: function () {
+                    const file = dialog.showOpenDialog({
+                        title: 'Open image',
+                        filters: [
+                            {
+                                name: 'Images',
+                                extensions: ['jpg', 'jpeg', 'png', 'tiff', 'tif']
+                            }
+                        ],
+                        properties: ['openFile']
+                    });
+                    if (file) {
+                        application.openImage(file[0]);
+                    }
+                }
+            }
+        ]
+    },
     {
         label: 'Edit',
         submenu: [
