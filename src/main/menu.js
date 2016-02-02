@@ -22,7 +22,7 @@ const template = [
                                 extensions: ['jpg', 'jpeg', 'png', 'tiff', 'tif']
                             }
                         ],
-                        properties: ['openFile']
+                        properties: ['openFile'] // TODO allow to open multiple images at once
                     });
                     if (file) {
                         application.openImage(file[0]);
@@ -70,16 +70,21 @@ const template = [
         ]
     },
     {
-        label: 'View',
+        label: 'Image',
         submenu: [
             {
-                label: 'Reload',
-                accelerator: 'CmdOrCtrl+R',
+                label: 'To greyscale',
                 click: function(item, focusedWindow) {
-                    if (focusedWindow)
-                        focusedWindow.reload();
+                    if (focusedWindow) {
+                        // TODO send action to window
+                    }
                 }
-            },
+            }
+        ]
+    },
+    {
+        label: 'View',
+        submenu: [
             {
                 label: 'Toggle Full Screen',
                 accelerator: (function() {
@@ -121,7 +126,7 @@ const template = [
                 label: 'Close',
                 accelerator: 'CmdOrCtrl+W',
                 role: 'close'
-            },
+            }
         ]
     },
     {
@@ -130,8 +135,8 @@ const template = [
         submenu: [
             {
                 label: 'Learn More',
-                click: function() { require('electron').shell.openExternal('http://electron.atom.io') }
-            },
+                click: function() { require('electron').shell.openExternal('http://image-js.org') }
+            }
         ]
     },
 ];
